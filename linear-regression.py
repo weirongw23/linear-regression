@@ -1,12 +1,23 @@
 #TODO: import appropriate data analysis Python libraries
 import sys
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
-
 #TODO: import data
-x_values = np.array([1,2,3,4,5,6,7,8,9,10])
-y_values = np.array([1,4,1,6,4,7,4,6,10,8])
+df = pd.ExcelFile('oil_exxon.xlsx').parse('price_data')
+
+
+#TODO: read x-axis data
+x = []
+x.append(df['oil_price'])
+x_values = np.array(x)
+
+
+#TODO: read y-axis data
+y = []
+y.append(df['exon_price'])
+y_values = np.array(y)
 
 
 #TODO: print line of best fit
@@ -61,8 +72,7 @@ def r2_values(ys_orig, ys_line):
     return 1 - (squared_error_regr / squared_error_y_mean)
 
 r_squared = r2_values(y_values, regression_line)
-print(f"r2_value: {round(r_squared, 2)}")
-
+print(f"r2_value: {r_squared}")
 
 #TODO: Plotting points and regression line
 plt.title('Linear Regression of Two Data Sets')
@@ -71,3 +81,4 @@ plt.scatter(x_prediction, y_prediction, color='#fc003f', label="Predicted")
 plt.plot(x_values, regression_line, color='000000', label='regression line')
 plt.legend(loc=4)
 plt.savefig("graph.png")
+plt.show()
